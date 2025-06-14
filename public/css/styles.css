@@ -1,120 +1,136 @@
-:root{
-    color-scheme: light dark;
-    
-    /* Color Variables */
-    --bg-color-light: #eceded;
-    --bg-color-dark: #001a1a;
-    --bg-color: light-dark(var(--bg-color-light), var(--bg-color-dark));
+:root {
+  color-scheme: light dark;
 
-    --bg-accent-light: #e4eeef;
-    --bg-accent-dark: #043636;
-    --bg-accent-color: light-dark(var(--bg-accent-light), var(--bg-accent-dark));
+  /* Color Variables */
+  --bg-color-light: #eceded;
+  --bg-color-dark: #001a1a;
+  --bg-color: light-dark(var(--bg-color-light), var(--bg-color-dark));
 
-    --bg-hover-light: #cad4d5;
-    --bg-hover-dark: #022424;
-    --bg-hover-color: light-dark(var(--bg-hover-light), var(--bg-hover-dark));
+  --bg-accent-light: #e4eeef;
+  --bg-accent-dark: #043636;
+  --bg-accent-color: light-dark(var(--bg-accent-light), var(--bg-accent-dark));
 
-    --text-color-light: #043636;
-    --text-color-dark: #ffffff;
-    --text-color: light-dark(var(--text-color-light), var(--text-color-dark));
+  --bg-hover-light: #cad4d5;
+  --bg-hover-dark: #022424;
+  --bg-hover-color: light-dark(var(--bg-hover-light), var(--bg-hover-dark));
 
-    --primary-color: #3FB5B5;
-    --primary-hover-color: #43D2D2;
+  --text-color-light: #043636;
+  --text-color-dark: #ffffff;
+  --text-color: light-dark(var(--text-color-light), var(--text-color-dark));
 
-    /* Spancing */
-    --space-unit: 4px;
-    --spcae-1-2: calc(var(--space-unit) * 0.5);
-    --spapce-1: calc(var(--space-unit) * 1);
-    --spapce-2: calc(var(--space-unit) * 2);
-    --spapce-3: calc(var(--space-unit) * 3);
-    --spapce-4: calc(var(--space-unit) * 4);
-    --spapce-5: calc(var(--space-unit) * 5);
-    --spapce-6: calc(var(--space-unit) * 6);
-    --spapce-7: calc(var(--space-unit) * 7);
-    --spapce-8: calc(var(--space-unit) * 8);
-    --spapce-9: calc(var(--space-unit) * 9);
-    --spapce-10: calc(var(--space-unit) * 10);
+  --primary-color: #3fb5b5;
+  --primary-hover-color: #43d2d2;
 
-    /* Font Sizes */
-    --font-size-xs: 0.75rem; /* 12px */
-    --font-size-sm: 0.875rem; /* 14px */
-    --font-size-base: 1rem; /* 16px */
-    --font-size-lg: 1.125rem; /* 18px */
-    --font-size-xl: 1.25rem; /* 20px */
-    --font-size-2xl: 1.5rem; /* 24px */
-    --font-size-3xl: 1.875rem; /* 30px */
+  /* Spancing */
+  --space-unit: 4px;
+  --spcae-1-2: calc(var(--space-unit) * 0.5);
+  --spapce-1: calc(var(--space-unit) * 1);
+  --spapce-2: calc(var(--space-unit) * 2);
+  --spapce-3: calc(var(--space-unit) * 3);
+  --spapce-4: calc(var(--space-unit) * 4);
+  --spapce-5: calc(var(--space-unit) * 5);
+  --spapce-6: calc(var(--space-unit) * 6);
+  --spapce-7: calc(var(--space-unit) * 7);
+  --spapce-8: calc(var(--space-unit) * 8);
+  --spapce-9: calc(var(--space-unit) * 9);
+  --spapce-10: calc(var(--space-unit) * 10);
 
-    /* Brakpoints */
-    --breakpoint-xs: 480px;
-    --breakpoint-sm: 640px;
-    --breakpoint-md: 768px;
-    --breakpoint-lg: 1024px;
-    --breakpoint-xl: 1280px;
-    --breakpoint-2xl: 1536px;
-    --breakpoint-3xl: 1920px;
-    --breakpoint-4xl: 2560px;
+  /* Font Sizes */
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
 
-    /* Misc */
-    --max-width: 1200px;
+  /* Brakpoints */
+  --breakpoint-xs: 480px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+  --breakpoint-3xl: 1920px;
+  --breakpoint-4xl: 2560px;
 
-    /* Border-radius */
-    --border-radius-sm: 6px;
-    --border-radius-md: 12px;
-    --border-radius-lg: 24px;
-    --border-radius-xl: 32px;
-    --border-radius-2xl: 48px;
-    --border-radius-full: 9999px;
-    --border-radius-none: 0;
+  /* Misc */
+  --max-width: 1200px;
 
-    /* Animations */
-    --transition-duration: 0.3s;
+  /* Border-radius */
+  --border-radius-sm: 6px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 24px;
+  --border-radius-xl: 32px;
+  --border-radius-2xl: 48px;
+  --border-radius-full: 9999px;
+  --border-radius-none: 0;
+
+  /* Animations */
+  --transition-duration: 0.3s;
 }
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
 }
 
-button, input, select, textarea {
-    font-family: inherit;
-    font-size: inherit;
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
 }
 
-button{
-    background-color: var(--primary-color);
-    color: var(--text-color);
-    border: none;
-    border-radius: var(--border-radius-sm);
-    padding: var(--spapce-2) var(--spapce-4);
-    cursor: pointer;
-    transition: background-color var(--transition-duration);
+button {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: none;
+  border-radius: var(--border-radius-sm);
+  padding: var(--spapce-2) var(--spapce-4);
+  cursor: pointer;
+  transition: background-color var(--transition-duration);
 
-    &:hover {
-        background-color: var(--primary-hover-color);
-    }
+  &:hover {
+    background-color: var(--primary-hover-color);
+  }
 }
 
-input, select, textarea {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    border: 1px solid var(--bg-hover-color);
-    border-radius: var(--border-radius-sm);
-    padding: var(--spapce-2) var(--spapce-4);
-    transition: border-color var(--transition-duration);
+input,
+select,
+textarea {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--bg-hover-color);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spapce-2) var(--spapce-4);
+  transition: border-color var(--transition-duration);
 
-    &:focus {
-        border-color: var(--primary-color);
-        outline: none;
-    }
+  &:focus {
+    border-color: var(--primary-color);
+    outline: none;
+  }
 
-    &.accent-bg {
-        background-color: var(--bg-accent-color);
-    }
+  &.accent-bg {
+    background-color: var(--bg-accent-color);
+  }
 }
