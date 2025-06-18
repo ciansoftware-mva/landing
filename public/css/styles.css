@@ -24,16 +24,16 @@
   /* Spancing */
   --space-unit: 4px;
   --spcae-1-2: calc(var(--space-unit) * 0.5);
-  --spapce-1: calc(var(--space-unit) * 1);
-  --spapce-2: calc(var(--space-unit) * 2);
-  --spapce-3: calc(var(--space-unit) * 3);
-  --spapce-4: calc(var(--space-unit) * 4);
-  --spapce-5: calc(var(--space-unit) * 5);
-  --spapce-6: calc(var(--space-unit) * 6);
-  --spapce-7: calc(var(--space-unit) * 7);
-  --spapce-8: calc(var(--space-unit) * 8);
-  --spapce-9: calc(var(--space-unit) * 9);
-  --spapce-10: calc(var(--space-unit) * 10);
+  --space-1: calc(var(--space-unit) * 1);
+  --space-2: calc(var(--space-unit) * 2);
+  --space-3: calc(var(--space-unit) * 3);
+  --space-4: calc(var(--space-unit) * 4);
+  --space-5: calc(var(--space-unit) * 5);
+  --space-6: calc(var(--space-unit) * 6);
+  --space-7: calc(var(--space-unit) * 7);
+  --space-8: calc(var(--space-unit) * 8);
+  --space-9: calc(var(--space-unit) * 9);
+  --space-10: calc(var(--space-unit) * 10);
 
   /* Font Sizes */
   --font-size-xs: 0.75rem; /* 12px */
@@ -43,6 +43,7 @@
   --font-size-xl: 1.25rem; /* 20px */
   --font-size-2xl: 1.5rem; /* 24px */
   --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem; /* 36px */
 
   /* Brakpoints */
   --breakpoint-xs: 480px;
@@ -106,7 +107,7 @@ button {
   color: var(--text-color);
   border: none;
   border-radius: var(--border-radius-sm);
-  padding: var(--spapce-2) var(--spapce-4);
+  padding: var(--space-2) var(--space-4);
   cursor: pointer;
   transition: background-color var(--transition-duration);
 
@@ -122,7 +123,7 @@ textarea {
   color: var(--text-color);
   border: 1px solid var(--bg-hover-color);
   border-radius: var(--border-radius-sm);
-  padding: var(--spapce-2) var(--spapce-4);
+  padding: var(--space-2) var(--space-4);
   transition: border-color var(--transition-duration);
 
   &:focus {
