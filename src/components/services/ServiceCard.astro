@@ -1,0 +1,100 @@
+---
+import type { ImageMetadata } from "astro";
+import { imageConfig } from "astro:assets";
+
+interface Props {
+  title: string;
+  description?: string;
+  img?: ImageMetadata;
+  src?: string;
+  alt?: string;
+}
+
+const { title, description = "", img = null, src = "", alt = "" } = Astro.props;
+---
+
+<article>
+  <img src={img?.src || src} {alt} class="background" />
+  <h3>{title}</h3>
+
+  <p>{description}</p>
+
+  <!-- <button>Saber Mas</button> -->
+</article>
+
+<style>
+  article {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-accent-color);
+    width: 200px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding-top: var(--space-4);
+    position: relative;
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      z-index: -1;
+      filter: brightness(0.6) blur(2px);
+    }
+
+    p {
+      width: 100%;
+      display: none;
+      text-align: center;
+      position: relative;
+      align-items: center;
+      justify-content: center;
+      justify-self: flex-end;
+      height: 0;
+      top: 100%;
+      padding-inline: var(--space-3);
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(31, 31, 31, 0.438) 100%
+      );
+
+      transition:
+        height 0.3s ease-in-out,
+        top 0.3s ease-in-out,
+        display 0.5s ease-in-out allow-discrete;
+    }
+
+    h3 {
+      font-size: var(--font-size-lg);
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    &:hover {
+      /* justify-content: end; */
+
+      p {
+        flex-grow: 1;
+        height: 50%;
+        top: 0;
+        display: flex;
+        transition:
+          height 0.4s ease-in-out,
+          top 0.4s ease-in-out;
+
+        @starting-style {
+          height: 0;
+          top: 100%;
+        }
+      }
+    }
+  }
+</style>
