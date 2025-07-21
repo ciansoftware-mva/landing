@@ -1,0 +1,92 @@
+---
+import TeamPicture from "../assets/team.jpg";
+---
+
+<section>
+  <picture>
+    <img src={TeamPicture.src} alt="Team Picture" />
+  </picture>
+  <div>
+    <h2>Acerca de nosotros</h2>
+    <p>
+      Somos una empresa especializada en el desarollo de software, inteligencia
+      artificial y analisis de datos.
+    </p>
+  </div>
+</section>
+
+<style>
+  section {
+    max-width: var(--breakpoint-lg);
+    margin-inline: auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    overflow-y: visible;
+    height: fit-content;
+    padding: 1rem;
+    gap: 2rem;
+  }
+
+  div,
+  picture {
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+
+  picture img {
+    max-height: 500px;
+    min-width: 200px;
+    width: 60vw;
+    max-width: 500px;
+    border-radius: 0px 8px 8px 0px;
+    object-fit: cover;
+  }
+
+  div * {
+    text-align: right;
+  }
+
+  div h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  section::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 500px;
+    aspect-ratio: 1 / 1;
+    background-color: var(--bg-accent-color);
+    border-radius: 50%;
+    z-index: -1;
+    translate: 30% -50%;
+  }
+
+  @media screen and (width < 640px) {
+    section {
+      height: 100%;
+      flex-direction: column-reverse;
+    }
+
+    section::after {
+      top: 50%;
+      right: 50%;
+      width: 500px;
+      translate: 50% -50%;
+    }
+
+    picture img {
+      max-height: 100vw;
+      border-radius: 8px;
+    }
+
+    div * {
+      text-align: center;
+    }
+  }
+</style>
