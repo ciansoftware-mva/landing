@@ -1,0 +1,191 @@
+---
+const menuItems = ["Inicio", "Servicios", "Nosotros", "Contactanos"];
+---
+
+<header class="header">
+  <div class="logo"></div>
+  <nav>
+    <head>
+      <link rel="stylesheet" href="/css/Header.css" />
+    </head>
+    <ul>
+      {
+        menuItems.map((item) => (
+          <li>
+            <a href="" class="nav-link hover-effect">
+              {item}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--space-4);
+    background-color: var(--bg-accent-color);
+  }
+
+  .logo {
+    width: 150px;
+    height: 60px;
+    background-image: url("/Imagenes/logo-light.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .logo {
+      background-image: url("/Imagenes/logo-dark.png");
+    }
+  }
+
+  nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav ul li {
+    margin-left: var(--space-2);
+  }
+
+  .nav-link {
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    padding: var(--space-unit) var(--space-2);
+    position: relative;
+    transition: color var(--transition-duration);
+  }
+
+  .hover-effect:before,
+  .hover-effect:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--primary-color);
+    transition:
+      transform var(--transition-duration),
+      opacity var(--transition-duration);
+  }
+
+  .hover-effect:before {
+    top: 0;
+    transform: scaleY(2);
+    opacity: 0;
+  }
+
+  .hover-effect:after {
+    bottom: 0;
+    transform: scaleY(0);
+    opacity: 0;
+  }
+
+  .hover-effect:hover {
+    color: var(--primary-color);
+  }
+
+  .hover-effect:hover:before {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  .hover-effect:hover:after {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  /* TABLET (ancho <= 1024px) */
+  @media screen and (max-width: 1024px) {
+    .logo {
+      width: 120px;
+      height: 50px;
+    }
+
+    .nav-link {
+      font-size: 1rem;
+      padding: 4px 8px;
+    }
+
+    .header {
+      padding: 0 16px;
+    }
+  }
+
+  /* MÓVIL (ancho <= 768px) */
+  @media screen and (max-width: 768px) {
+    .header {
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      height: auto;
+      padding: 12px;
+      gap: 12px;
+    }
+
+    nav ul {
+      flex-direction: row;
+      width: 100%;
+      gap: 8px;
+    }
+
+    nav ul li {
+      margin: 0;
+    }
+
+    .logo {
+      width: 100px;
+      height: 40px;
+    }
+
+    .nav-link {
+      font-size: 0.9rem;
+      padding: 6px 0;
+      width: 100%;
+    }
+  }
+
+  nav ul {
+    flex-direction: row;
+    width: 100%;
+    gap: 8px;
+  }
+
+  nav ul li {
+    margin: 0;
+  }
+
+  .logo {
+    width: 100px;
+    height: 40px;
+  }
+
+  .nav-link {
+    font-size: 0.9rem;
+    padding: 6px 0;
+    width: 100%;
+  }
+  nav ul {
+    flex-direction: row;
+    width: 100%;
+    gap: 8px;
+  }
+</style>
