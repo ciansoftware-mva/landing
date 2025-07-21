@@ -1,0 +1,277 @@
+---
+// Hero.astro
+import ParticleAnimation from "../components/ParticleAnimation.astro";
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  primaryButtonText?: string;
+  primaryButtonLink?: string;
+}
+
+const {
+  title = "Transforma tu Negocio con",
+  subtitle = "Inteligencia Artificial",
+  description = "Revoluciona tu empresa con tecnología de vanguardia y soluciones inteligentes que revolucionan tu flujo de trabajo",
+  primaryButtonText = "Agendar una Cita",
+  primaryButtonLink = "#",
+} = Astro.props;
+---
+
+<section id="hero" class="hero-section">
+  <div class="hero-container">
+    <!-- Contenido del Hero -->
+    <div class="hero-content">
+      <div class="content-wrapper">
+        <h1 class="hero-title">
+          {title}
+          <span class="hero-subtitle">{subtitle}</span>
+        </h1>
+        <p class="hero-description">
+          {description}
+        </p>
+        <div class="hero-buttons">
+          <a href={primaryButtonLink} class="btn btn-primary">
+            {primaryButtonText}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Animación de Partículas -->
+    <div class="hero-animation">
+      <ParticleAnimation />
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Contenedor principal */
+  .hero-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    isolation: isolate;
+    background: var(--bg-color-dark);
+  }
+
+  /* Grid container para desktop */
+  .hero-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    height: 100vh;
+    position: relative;
+    width: 100%;
+  }
+
+  /* Contenido del Hero */
+  .hero-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spapce-8);
+    background: var(--bg-color-dark);
+    position: relative;
+    z-index: 20;
+    overflow: visible;
+  }
+
+  .content-wrapper {
+    max-width: 600px;
+    width: 100%;
+    padding: 0 var(--spapce-8);
+    position: relative;
+    z-index: 25;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: 800;
+    color: var(--text-color-dark);
+    margin-bottom: clamp(var(--spapce-6), 4vw, var(--spapce-8));
+    line-height: 1.1;
+    position: relative;
+    z-index: 25;
+  }
+
+  .hero-subtitle {
+    display: block;
+    background: linear-gradient(
+      135deg,
+      var(--primary-color) 0%,
+      var(--primary-hover-color) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-top: clamp(var(--spapce-2), 2vw, var(--spapce-4));
+    text-shadow: 0 0 30px rgba(63, 181, 181, 0.3);
+    position: relative;
+    z-index: 25;
+  }
+
+  .hero-description {
+    font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: clamp(var(--spapce-8), 5vw, var(--spapce-12));
+    line-height: 1.6;
+    max-width: 90%;
+  }
+
+  /* Botones */
+  .hero-buttons {
+    display: flex;
+    gap: clamp(var(--spapce-4), 3vw, var(--spapce-6));
+    flex-wrap: wrap;
+    margin-top: clamp(var(--spapce-4), 3vw, var(--spapce-6));
+    justify-content: flex-start;
+  }
+
+  .btn {
+    padding: clamp(var(--spapce-4), 2.5vw, var(--spapce-6))
+      clamp(var(--spapce-10), 5vw, var(--spapce-16));
+    font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 14px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    min-width: clamp(250px, 100vw, 280px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+    transition: left 0.6s;
+  }
+
+  .btn:hover::before {
+    left: 100%;
+  }
+
+  .btn-primary {
+    background: linear-gradient(
+      135deg,
+      var(--primary-color) 0%,
+      var(--primary-hover-color) 100%
+    );
+    color: var(--bg-color-dark);
+    border: 2px solid transparent;
+    box-shadow: 0 4px 15px rgba(63, 181, 181, 0.2);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 40px rgba(63, 181, 181, 0.5);
+    background: linear-gradient(
+      135deg,
+      var(--primary-hover-color) 0%,
+      var(--primary-color) 100%
+    );
+  }
+
+  .btn-secondary {
+    background: rgba(63, 181, 181, 0.1);
+    color: var(--primary-color);
+    border: 2px solid rgba(63, 181, 181, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn-secondary:hover {
+    background: var(--primary-color);
+    color: var(--bg-color-dark);
+    transform: translateY(-3px);
+    border-color: var(--primary-color);
+    box-shadow: 0 12px 35px rgba(63, 181, 181, 0.3);
+  }
+
+  /* Contenedor de animación */
+  .hero-animation {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-color-dark);
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  /* Responsive para móviles */
+  @media (max-width: 768px) {
+    .hero-container {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+    }
+
+    .hero-content {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      background: rgba(0, 26, 26, 0.85);
+      padding: var(--spapce-4);
+    }
+
+    .hero-animation {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    .content-wrapper {
+      text-align: center;
+      padding: 0 var(--spapce-4);
+    }
+
+    .btn {
+      min-width: clamp(180px, 45vw, 250px);
+      padding: var(--spapce-4) var(--spapce-6);
+      font-size: clamp(1rem, 4.5vw, 1.25rem);
+    }
+
+    .hero-buttons {
+      justify-content: center;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 10vw, 3rem);
+      margin-bottom: var(--spapce-4);
+    }
+
+    .hero-description {
+      font-size: clamp(1rem, 4vw, 1.25rem);
+      margin-bottom: var(--spapce-6);
+      max-width: 100%;
+    }
+
+    .hero-buttons {
+      justify-content: center;
+    }
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.05;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 0.08;
+    }
+  }
+</style>

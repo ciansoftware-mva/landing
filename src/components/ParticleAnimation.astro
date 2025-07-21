@@ -1,0 +1,540 @@
+---
+// ParticleAnimation.astro
+// Componente encapsulado para la animación de partículas
+---
+
+<div class="particle-container" id="particle-hero">
+  <div class="particle-canvas" data-particle-target></div>
+  <div class="particle-controls"></div>
+</div>
+
+<style>
+  .particle-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .particle-canvas {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    pointer-events: none;
+  }
+
+  .particle-controls {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 10;
+    pointer-events: auto;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+
+  .particle-controls:hover {
+    opacity: 1;
+  }
+
+  .control-btn {
+    width: 40px;
+    height: 40px;
+    border: 2px solid rgba(63, 181, 181, 0.3);
+    background: rgba(0, 26, 26, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius-sm);
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: all var(--transition-duration) ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .control-btn:hover {
+    background: rgba(63, 181, 181, 0.2);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+  }
+
+  .control-btn.active {
+    background: var(--primary-color);
+    color: var(--bg-color-dark);
+  }
+
+  @media (max-width: 768px) {
+    .particle-controls {
+      top: auto;
+      bottom: 1rem;
+      right: 50%;
+      transform: translateX(50%);
+    }
+  }
+</style>
+
+<script>
+  import type { Scene, PerspectiveCamera, WebGLRenderer, Mesh } from "three";
+
+  class ParticleSystem {
+    private container: HTMLElement;
+    private scene!: Scene;
+    private camera!: PerspectiveCamera;
+    private renderer!: WebGLRenderer;
+    private particles: Mesh[] = [];
+    private animationId: number | null = null;
+    private currentPattern: string = "sphere";
+    private time: number = 0;
+    private mouseX: number = 0;
+    private mouseY: number = 0;
+    private THREE: any;
+    private lastPatternChange: number = Date.now();
+    private patterns: string[] = ["sphere", "wave", "spiral", "galaxy", "dna"];
+    private patternIndex: number = 0;
+    private transitionProgress: number = 1;
+    private isTransitioning: boolean = false;
+    private nextPattern: string = "sphere";
+
+    private config = {
+      particleCount: window.innerWidth < 768 ? 180 : 800, // Muchas más partículas
+      particleSize: window.innerWidth < 768 ? 0.4 : 0.3, // Más pequeñas para mejor densidad
+      animationSpeed: 0.0003,
+      colors: {
+        primary: 0x3fb5b5,
+        secondary: 0x43d2d2,
+        accent: 0x001a1a,
+        highlight: 0x00ffff,
+      },
+    };
+
+    constructor(container: HTMLElement) {
+      this.container = container;
+      this.init();
+    }
+
+    private async init() {
+      try {
+        const THREE = await import("three");
+        this.THREE = THREE;
+
+        // Escena
+        this.scene = new THREE.Scene();
+        this.scene.fog = new THREE.Fog(this.config.colors.accent, 60, 220);
+
+        // Cámara mejorada
+        this.camera = new THREE.PerspectiveCamera(
+          65,
+          this.container.clientWidth / this.container.clientHeight,
+          0.1,
+          1000
+        );
+        this.camera.position.z = 90;
+
+        // Renderer optimizado sin sombras
+        this.renderer = new THREE.WebGLRenderer({
+          antialias: true,
+          alpha: true,
+          powerPreference: "high-performance",
+        });
+        this.renderer.setSize(
+          this.container.clientWidth,
+          this.container.clientHeight
+        );
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        this.renderer.setClearColor(0x000000, 0);
+        this.container.appendChild(this.renderer.domElement);
+
+        // Crear elementos
+        this.createParticles();
+        this.setupLights();
+        this.setupEventListeners();
+
+        // Iniciar animación
+        this.animate();
+      } catch (error) {
+        console.error("Error initializing particle system:", error);
+      }
+    }
+
+    private createParticles() {
+      const THREE = this.THREE;
+
+      for (let i = 0; i < this.config.particleCount; i++) {
+        // Geometría perfectamente esférica
+        const geometry = new THREE.SphereGeometry(
+          this.config.particleSize,
+          32, // Más segmentos para perfección
+          32 // Segmentos verticales también aumentados
+        );
+
+        // Material neón brillante sin artefactos
+        const colorVariation = Math.random() * 0.2;
+        const baseColor = new THREE.Color(this.config.colors.primary);
+        const particleColor = baseColor
+          .clone()
+          .lerp(new THREE.Color(this.config.colors.secondary), colorVariation);
+
+        const material = new THREE.MeshBasicMaterial({
+          color: particleColor,
+          transparent: true,
+          opacity: window.innerWidth < 768 ? 0.9 : 0.8,
+        });
+
+        // Añadir efecto neón con glow
+        const glowMaterial = new THREE.MeshBasicMaterial({
+          color: particleColor,
+          transparent: true,
+          opacity: 0.3,
+        });
+
+        const particle = new THREE.Mesh(geometry, material);
+
+        // Crear glow exterior
+        const glowGeometry = new THREE.SphereGeometry(
+          this.config.particleSize * 1.8,
+          16,
+          16
+        );
+        const glow = new THREE.Mesh(glowGeometry, glowMaterial);
+        particle.add(glow);
+
+        particle.position.set(
+          (Math.random() - 0.5) * 120,
+          (Math.random() - 0.5) * 120,
+          (Math.random() - 0.5) * 60
+        );
+
+        // Variación de tamaños más sutil
+        const scale = 0.8 + Math.random() * 0.4;
+        particle.scale.setScalar(scale);
+
+        particle.userData = {
+          initialPos: particle.position.clone(),
+          phase: Math.random() * Math.PI * 2,
+          speed: 0.4 + Math.random() * 0.6,
+          scale: scale,
+          colorPhase: Math.random() * Math.PI * 2,
+          glow: glow,
+        };
+
+        this.particles.push(particle);
+        this.scene.add(particle);
+      }
+    }
+
+    private setupLights() {
+      const THREE = this.THREE;
+
+      // Solo luz ambiental suave para el efecto neón
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+      this.scene.add(ambientLight);
+    }
+
+    private setupEventListeners() {
+      this.container.addEventListener("mousemove", (e) => {
+        const rect = this.container.getBoundingClientRect();
+        this.mouseX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        this.mouseY = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      });
+
+      window.addEventListener("resize", () => this.handleResize());
+
+      const controls = document.querySelectorAll("[data-pattern]");
+      controls.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          const pattern = (e.currentTarget as HTMLElement).dataset.pattern!;
+          this.lastPatternChange = Date.now();
+
+          const newIndex = this.patterns.indexOf(pattern);
+          if (newIndex !== -1 && pattern !== this.currentPattern) {
+            this.patternIndex = newIndex;
+            this.nextPattern = pattern;
+            this.startPatternTransition();
+          }
+        });
+      });
+
+      document
+        .querySelector('[data-pattern="sphere"]')
+        ?.classList.add("active");
+    }
+
+    private handleResize() {
+      this.camera.aspect =
+        this.container.clientWidth / this.container.clientHeight;
+      this.camera.updateProjectionMatrix();
+      this.renderer.setSize(
+        this.container.clientWidth,
+        this.container.clientHeight
+      );
+    }
+
+    private updateParticles() {
+      this.time += this.config.animationSpeed;
+
+      // Cambio automático cada 10 segundos
+      const now = Date.now();
+      if (now - this.lastPatternChange > 10000 && !this.isTransitioning) {
+        this.startPatternTransition();
+      }
+
+      // Transición suave
+      if (this.isTransitioning) {
+        this.transitionProgress = Math.min(this.transitionProgress + 0.015, 1);
+        if (this.transitionProgress >= 1) {
+          this.currentPattern = this.nextPattern;
+          this.isTransitioning = false;
+        }
+      }
+
+      // Luces dinámicas removidas - ya no necesarias
+      // if (this.scene.userData.pointLight1) {
+      //   this.scene.userData.pointLight1.position.x = Math.sin(this.time * 15) * 35;
+      //   this.scene.userData.pointLight1.position.y = Math.cos(this.time * 12) * 35;
+      // }
+
+      // if (this.scene.userData.pointLight2) {
+      //   this.scene.userData.pointLight2.position.x = Math.cos(this.time * 18) * 25;
+      //   this.scene.userData.pointLight2.position.z = Math.sin(this.time * 16) * 30;
+      // }
+
+      this.particles.forEach((particle, index) => {
+        const { phase, speed, scale, colorPhase, glow } = particle.userData;
+
+        // Animación de posición con transiciones
+        if (this.isTransitioning) {
+          const currentPos = this.getPatternPosition(
+            this.currentPattern,
+            particle,
+            index,
+            phase,
+            speed
+          );
+          const nextPos = this.getPatternPosition(
+            this.nextPattern,
+            particle,
+            index,
+            phase,
+            speed
+          );
+
+          const t = this.easeInOutCubic(this.transitionProgress);
+          particle.position.x +=
+            (currentPos.x * (1 - t) + nextPos.x * t - particle.position.x) *
+            0.08;
+          particle.position.y +=
+            (currentPos.y * (1 - t) + nextPos.y * t - particle.position.y) *
+            0.08;
+          particle.position.z +=
+            (currentPos.z * (1 - t) + nextPos.z * t - particle.position.z) *
+            0.08;
+        } else {
+          this.applyPattern(this.currentPattern, particle, index, phase, speed);
+        }
+
+        // Pulsación neón suave
+        const pulse = 1 + Math.sin(this.time * 25 + phase) * 0.1;
+        particle.scale.setScalar(scale * pulse);
+
+        // Efecto glow dinámico
+        const glowPulse = 1 + Math.sin(this.time * 20 + colorPhase) * 0.3;
+        glow.scale.setScalar(glowPulse);
+
+        // Intensidad neón
+        const material = particle.material as any;
+        const glowMaterial = glow.material as any;
+
+        if (material && glowMaterial) {
+          const intensity = 0.8 + Math.sin(this.time * 15 + colorPhase) * 0.2;
+          material.opacity = intensity;
+          glowMaterial.opacity = intensity * 0.4;
+        }
+
+        // Opacidad basada en distancia
+        const distance = particle.position.distanceTo(this.camera.position);
+        if (material && "opacity" in material) {
+          const distanceOpacity = Math.max(0.3, 1 - distance / 250);
+          material.opacity *= distanceOpacity;
+          glowMaterial.opacity *= distanceOpacity * 0.5;
+        }
+      });
+    }
+
+    private applyPattern(
+      pattern: string,
+      particle: Mesh,
+      index: number,
+      phase: number,
+      speed: number
+    ) {
+      const targetPos = this.getPatternPosition(
+        pattern,
+        particle,
+        index,
+        phase,
+        speed
+      );
+      particle.position.lerp(
+        new this.THREE.Vector3(targetPos.x, targetPos.y, targetPos.z),
+        0.04
+      );
+    }
+
+    private getPatternPosition(
+      pattern: string,
+      particle: Mesh,
+      index: number,
+      phase: number,
+      speed: number
+    ): { x: number; y: number; z: number } {
+      const t = this.time * speed * 15;
+
+      switch (pattern) {
+        case "sphere": {
+          const layers = 6;
+          const layer = Math.floor(
+            index / (this.config.particleCount / layers)
+          );
+          const radius = 25 + layer * 8 + Math.sin(t + phase) * 5;
+          const theta =
+            (index / this.config.particleCount) * Math.PI * 4 + t * 0.5;
+          const phi = Math.acos(-1 + (2 * index) / this.config.particleCount);
+
+          return {
+            x: radius * Math.sin(phi) * Math.cos(theta),
+            y: radius * Math.sin(phi) * Math.sin(theta),
+            z: radius * Math.cos(phi),
+          };
+        }
+
+        case "wave": {
+          const gridSize = Math.ceil(Math.sqrt(this.config.particleCount));
+          const x = ((index % gridSize) - gridSize / 2) * 3.5;
+          const z = (Math.floor(index / gridSize) - gridSize / 2) * 3.5;
+          const waveHeight = Math.sin(t + x * 0.15 + z * 0.15 + phase) * 18;
+          const ripple = Math.sin(Math.sqrt(x * x + z * z) * 0.1 - t * 2) * 8;
+
+          return {
+            x: x,
+            y: waveHeight + ripple,
+            z: z,
+          };
+        }
+
+        case "spiral": {
+          const spiralTurns = 4;
+          const spiralRadius = 12 + (index / this.config.particleCount) * 25;
+          const angle =
+            (index / this.config.particleCount) * Math.PI * spiralTurns * 2 + t;
+          const height = (index / this.config.particleCount - 0.5) * 70;
+
+          return {
+            x: Math.cos(angle) * spiralRadius,
+            y: height + Math.sin(t * 1.5 + phase) * 6,
+            z: Math.sin(angle) * spiralRadius,
+          };
+        }
+
+        case "galaxy": {
+          const arms = 3;
+          const armIndex = index % arms;
+          const armOffset = (armIndex / arms) * Math.PI * 2;
+          const distanceFromCenter = (index / this.config.particleCount) * 40;
+          const angle = armOffset + distanceFromCenter * 0.3 + t * 0.5;
+          const thickness = Math.sin(distanceFromCenter * 0.1 + t + phase) * 8;
+
+          return {
+            x: Math.cos(angle) * distanceFromCenter,
+            y: thickness,
+            z: Math.sin(angle) * distanceFromCenter,
+          };
+        }
+
+        case "dna": {
+          const helixRadius = 15;
+          const helixHeight = 80;
+          const strand = index % 2;
+          const strandOffset = strand * Math.PI;
+          const progress = (index / this.config.particleCount) * helixHeight;
+          const angle = progress * 0.2 + t + strandOffset;
+
+          return {
+            x: Math.cos(angle) * helixRadius,
+            y: progress - helixHeight / 2,
+            z: Math.sin(angle) * helixRadius,
+          };
+        }
+
+        default:
+          return { x: 0, y: 0, z: 0 };
+      }
+    }
+
+    private startPatternTransition() {
+      this.isTransitioning = true;
+      this.transitionProgress = 0;
+      this.lastPatternChange = Date.now();
+
+      this.patternIndex = (this.patternIndex + 1) % this.patterns.length;
+      this.nextPattern = this.patterns[this.patternIndex];
+
+      const controls = document.querySelectorAll("[data-pattern]");
+      controls.forEach((btn) => {
+        btn.classList.remove("active");
+        if ((btn as HTMLElement).dataset.pattern === this.nextPattern) {
+          btn.classList.add("active");
+        }
+      });
+    }
+
+    private easeInOutCubic(t: number): number {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    private animate() {
+      this.animationId = requestAnimationFrame(() => this.animate());
+      this.updateParticles();
+
+      // Movimiento de cámara más suave
+      this.camera.position.x +=
+        (this.mouseX * 12 - this.camera.position.x) * 0.03;
+      this.camera.position.y +=
+        (this.mouseY * 12 - this.camera.position.y) * 0.03;
+      this.camera.lookAt(this.scene.position);
+
+      this.renderer.render(this.scene, this.camera);
+    }
+
+    public destroy() {
+      if (this.animationId) {
+        cancelAnimationFrame(this.animationId);
+      }
+
+      this.particles.forEach((particle) => {
+        particle.geometry.dispose();
+        (particle.material as any).dispose();
+      });
+
+      this.renderer.dispose();
+      if (this.container.contains(this.renderer.domElement)) {
+        this.container.removeChild(this.renderer.domElement);
+      }
+    }
+  }
+
+  // Inicialización
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.querySelector("[data-particle-target]");
+    if (container) {
+      const particleSystem = new ParticleSystem(container as HTMLElement);
+
+      document.addEventListener("astro:before-swap", () => {
+        particleSystem.destroy();
+      });
+    }
+  });
+</script>
