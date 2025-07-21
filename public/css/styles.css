@@ -2,11 +2,11 @@
   color-scheme: light dark;
 
   /* Color Variables */
-  --bg-color-light: #eceded;
+  --bg-color-light: #fcffff;
   --bg-color-dark: #001a1a;
   --bg-color: light-dark(var(--bg-color-light), var(--bg-color-dark));
 
-  --bg-accent-light: #e4eeef;
+  --bg-accent-light: #ecf9fa;
   --bg-accent-dark: #043636;
   --bg-accent-color: light-dark(var(--bg-accent-light), var(--bg-accent-dark));
 
