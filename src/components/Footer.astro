@@ -1,0 +1,181 @@
+---
+import "../../public/css/footer.css";
+---
+
+<footer class="footer">
+  <p>© 2025 Cian Software todos los derechos reservados</p>
+  <div class="social-links">
+    <ul>
+      <li>
+        <a
+          href="https://www.facebook.com/profile.php?id=61576772986928"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Facebook"
+        >
+          <i class="fab fa-facebook-f icon"></i>
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://www.instagram.com/ciansoftware/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+        >
+          <i class="fab fa-instagram icon"></i>
+        </a>
+      </li>
+      <li>
+        <a
+          href=""
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+        >
+          <i class="fab fa-linkedin-in icon"></i>
+        </a>
+      </li>
+      <li>
+        <a
+          href=""
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Tiktok"
+        >
+          <i class="fab fa-tiktok icon"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</footer>
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+/>
+
+<style>
+  .footer {
+    background-color: var(--bg-accent-color);
+    color: var(--text-color-light);
+    padding: var(--space-4);
+    text-align: center;
+    font-size: var(--font-size-base);
+  }
+
+  .footer .social-links {
+    margin-top: var(--space-4);
+  }
+
+  .footer .social-links ul {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .footer .social-links ul li {
+    margin: 0 var(--space-unit);
+  }
+
+  .footer .social-links ul li a {
+    width: 60px;
+    height: 60px;
+    background-color: var(--bg-accent-color);
+    text-align: center;
+    line-height: 60px;
+    font-size: 24px;
+    display: flex;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    border: 3px solid #fff;
+    transition: 0.5s;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .footer .social-links ul li a .icon {
+    color: light-dark(var(--bg-accent-dark), var(--bg-accent-light));
+    transition: 0.5s;
+  }
+
+  .footer .social-links ul li a:hover .icon {
+    color: var(--bg-accent-light);
+    transform: rotateY(360deg);
+  }
+
+  .footer .social-links ul li a:before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #f00;
+    transition: 0.5s;
+  }
+
+  .footer .social-links ul li a:hover:before {
+    top: 0;
+  }
+
+  .footer .social-links ul li:nth-child(1) a:before {
+    background: #3b5999;
+  }
+
+  .footer .social-links ul li:nth-child(2) a:before {
+    background: linear-gradient(
+      45deg,
+      #feda75,
+      #fa7e1e,
+      #d62976,
+      #962fbf,
+      #4f5bd5
+    );
+  }
+
+  .footer .social-links ul li:nth-child(3) a:before {
+    background: #0077b5;
+  }
+
+  .footer .social-links ul li:nth-child(4) a:before {
+    background: #000000;
+  }
+
+  /* TABLET (<=1024px) */
+  @media screen and (max-width: 1024px) {
+    .footer {
+      font-size: 0.95rem;
+    }
+
+    .footer .social-links ul li a {
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+    }
+  }
+
+  /* MÓVIL (<=768px) */
+  @media screen and (max-width: 768px) {
+    .footer {
+      padding: 16px;
+      font-size: 0.9rem;
+    }
+
+    .footer .social-links ul {
+      flex-direction: row;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .footer .social-links ul li a {
+      width: 48px;
+      height: 48px;
+      font-size: 18px;
+    }
+  }
+</style>
