@@ -1,0 +1,99 @@
+---
+import "../../public/css/forms.css";
+---
+
+<forms class="forms">
+  <section class="contact-section">
+    <div class="contact-container">
+      <div class="contact-left">
+        <h1>Transforma tu negocio ahora</h1>
+        <h3>
+          Contacta con nosotros para encontrar la mejor solución a tu problema
+        </h3>
+      </div>
+      <div class="contact-right">
+        <form>
+          <input type="text" placeholder="Nombre" required />
+          <input type="email" placeholder="Correo" required />
+          <input type="text" placeholder="Empresa" required />
+          <textarea placeholder="Describe tu problema" rows="6" required
+          ></textarea>
+          <button type="submit">Enviar</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</forms>
+
+<style>
+  .contact-section {
+    background: light-dark(--bg-color-light, --bg-color-dark);
+    padding: 60px 20px;
+    font-family: "Arial", sans-serif;
+  }
+
+  .contact-container {
+    max-width: 1000px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    border-left: 4px solid #00a2a2;
+    padding-left: 40px;
+  }
+
+  .contact-left {
+    flex: 1;
+    padding-right: 20px;
+  }
+
+  .contact-left h1 {
+    font-size: 32px;
+    color: light-dark(--text-color-light, --text-color-dark);
+    margin-bottom: 10px;
+  }
+
+  .contact-left h3 {
+    font-size: 18px;
+    font-weight: normal;
+    color: light-dark(--text-color-light, --text-color-dark);
+  }
+
+  .contact-right {
+    flex: 1;
+  }
+
+  .contact-right form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .contact-right input,
+  .contact-right textarea {
+    padding: 12px;
+    color: light-dark(--accent-color-light, --accent-color-dark);
+    border: 1px solid;
+    border-radius: 6px;
+    font-size: 16px;
+  }
+
+  .contact-right textarea {
+    resize: vertical;
+  }
+
+  .contact-right button {
+    background-color: light-dark(--accent-color-dark, --accent-color-light);
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .contact-right button:hover {
+    background-color: #007878;
+  }
+</style>
