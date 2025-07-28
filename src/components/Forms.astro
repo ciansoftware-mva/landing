@@ -59,37 +59,41 @@
     flex: 1;
   }
 
-  .contact-right form {
+  form {
     display: flex;
     flex-direction: column;
     gap: 15px;
   }
 
-  .contact-right input,
-  .contact-right textarea {
+  input,
+  textarea {
     padding: 12px;
-    color: light-dark(--accent-color-light, --accent-color-dark);
-    border: 1px solid;
-    border-radius: 6px;
     font-size: 16px;
   }
 
-  .contact-right textarea {
+  textarea {
     resize: vertical;
   }
 
   .contact-right button {
-    background-color: light-dark(--accent-color-dark, --accent-color-light);
-    color: white;
     padding: 12px;
     font-size: 16px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
   }
 
-  .contact-right button:hover {
-    background-color: #007878;
+  @media screen and (width<= 640px) {
+    .contact-container {
+      flex-direction: column;
+      padding-left: 0;
+      border-left: none;
+    }
+
+    .contact-left,
+    .contact-right {
+      width: 100%;
+    }
+
+    .contact-left * {
+      text-align: center;
+    }
   }
 </style>

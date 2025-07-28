@@ -130,7 +130,7 @@
           65,
           this.container.clientWidth / this.container.clientHeight,
           0.1,
-          1000
+          1000,
         );
         this.camera.position.z = 90;
 
@@ -142,7 +142,7 @@
         });
         this.renderer.setSize(
           this.container.clientWidth,
-          this.container.clientHeight
+          this.container.clientHeight,
         );
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         this.renderer.setClearColor(0x000000, 0);
@@ -168,7 +168,7 @@
         const geometry = new THREE.SphereGeometry(
           this.config.particleSize,
           32, // Más segmentos para perfección
-          32 // Segmentos verticales también aumentados
+          32, // Segmentos verticales también aumentados
         );
 
         // Material neón brillante sin artefactos
@@ -197,7 +197,7 @@
         const glowGeometry = new THREE.SphereGeometry(
           this.config.particleSize * 1.8,
           16,
-          16
+          16,
         );
         const glow = new THREE.Mesh(glowGeometry, glowMaterial);
         particle.add(glow);
@@ -205,7 +205,7 @@
         particle.position.set(
           (Math.random() - 0.5) * 120,
           (Math.random() - 0.5) * 120,
-          (Math.random() - 0.5) * 60
+          (Math.random() - 0.5) * 60,
         );
 
         // Variación de tamaños más sutil
@@ -269,7 +269,7 @@
       this.camera.updateProjectionMatrix();
       this.renderer.setSize(
         this.container.clientWidth,
-        this.container.clientHeight
+        this.container.clientHeight,
       );
     }
 
@@ -312,14 +312,14 @@
             particle,
             index,
             phase,
-            speed
+            speed,
           );
           const nextPos = this.getPatternPosition(
             this.nextPattern,
             particle,
             index,
             phase,
-            speed
+            speed,
           );
 
           const t = this.easeInOutCubic(this.transitionProgress);
@@ -369,18 +369,18 @@
       particle: Mesh,
       index: number,
       phase: number,
-      speed: number
+      speed: number,
     ) {
       const targetPos = this.getPatternPosition(
         pattern,
         particle,
         index,
         phase,
-        speed
+        speed,
       );
       particle.position.lerp(
         new this.THREE.Vector3(targetPos.x, targetPos.y, targetPos.z),
-        0.04
+        0.04,
       );
     }
 
@@ -389,7 +389,7 @@
       particle: Mesh,
       index: number,
       phase: number,
-      speed: number
+      speed: number,
     ): { x: number; y: number; z: number } {
       const t = this.time * speed * 15;
 
@@ -397,7 +397,7 @@
         case "sphere": {
           const layers = 6;
           const layer = Math.floor(
-            index / (this.config.particleCount / layers)
+            index / (this.config.particleCount / layers),
           );
           const radius = 25 + layer * 8 + Math.sin(t + phase) * 5;
           const theta =

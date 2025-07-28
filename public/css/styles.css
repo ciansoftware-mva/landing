@@ -94,14 +94,6 @@ body {
     sans-serif;
 }
 
-button,
-input,
-select,
-textarea {
-  font-family: inherit;
-  font-size: inherit;
-}
-
 button {
   background-color: var(--primary-color);
   color: var(--text-color);
@@ -119,9 +111,12 @@ button {
 input,
 select,
 textarea {
+  font-family: inherit;
+  font-size: inherit;
+  padding: 12px;
   background-color: var(--bg-color);
   color: var(--text-color);
-  border: 1px solid var(--bg-hover-color);
+  border: 1px solid var(--text-color);
   border-radius: var(--border-radius-sm);
   padding: var(--space-2) var(--space-4);
   transition: border-color var(--transition-duration);
