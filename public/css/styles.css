@@ -130,3 +130,7 @@ textarea {
     background-color: var(--bg-accent-color);
   }
 }
+
+li {
+  list-style: none;
+}

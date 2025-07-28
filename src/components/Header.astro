@@ -1,9 +1,13 @@
 ---
+import HamburguerIcon from "../assets/icons/hamburguer.svg";
+
 const menuItems = ["Inicio", "Servicios", "Nosotros", "Contactanos"];
 ---
 
 <header class="header">
   <div class="logo"></div>
+
+  <!-- desktop -->
   <nav>
     <ul>
       {
@@ -17,7 +21,42 @@ const menuItems = ["Inicio", "Servicios", "Nosotros", "Contactanos"];
       }
     </ul>
   </nav>
+
+  <!-- mobile -->
+  <label for="menu"><HamburguerIcon width={24} height={24} /></label>
+  <input type="checkbox" hidden name="menu" id="menu" />
+  <aside id="sidebar">
+    <ul>
+      {
+        menuItems.map((item) => (
+          <li>
+            <a href="" class="nav-link hover-effect">
+              {item}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </aside>
 </header>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const checkbox = document.getElementById("menu") as HTMLInputElement;
+    const aside = document.getElementById("sidebar") as HTMLElement;
+
+    document.addEventListener("click", (e) => {
+      const target = e.target as HTMLElement;
+
+      if (target === checkbox) {
+        return;
+      }
+      if (checkbox.checked && !aside.contains(target)) {
+        checkbox.checked = false;
+      }
+    });
+  });
+</script>
 
 <style>
   .header {
@@ -30,13 +69,13 @@ const menuItems = ["Inicio", "Servicios", "Nosotros", "Contactanos"];
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 var(--space-4);
+    padding-inline: var(--space-6);
     background-color: var(--bg-accent-color);
   }
 
   .logo {
-    width: 150px;
-    height: 60px;
+    height: clamp(40px, 10vw, 80px);
+    width: clamp(110px, 20vw, 130px);
     background-image: url("/Imagenes/logo-light.png");
     background-size: contain;
     background-repeat: no-repeat;
@@ -49,15 +88,42 @@ const menuItems = ["Inicio", "Servicios", "Nosotros", "Contactanos"];
     }
   }
 
-  nav ul {
+  ul {
     display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    width: 100%;
+    gap: var(--space-4);
   }
 
-  nav ul li {
-    margin-left: var(--space-2);
+  nav ul {
+    flex-direction: row;
+  }
+
+  aside {
+    display: none;
+    position: fixed;
+    height: 100vh;
+    padding: var(--space-7);
+    top: 0%;
+    right: 0%;
+    text-align: right;
+    background-color: var(--bg-accent-color);
+    box-shadow: -5px -5px 15px 1px var(--bg-color);
+    transform: translateX(110%);
+    transition: transform var(--transition-duration);
+  }
+
+  label {
+    color: var(--text-color);
+    cursor: pointer;
+    display: none;
+  }
+
+  input[type="checkbox"]:checked + aside {
+    transform: translateX(0);
+  }
+
+  aside ul {
+    flex-direction: column;
   }
 
   .nav-link {
@@ -69,6 +135,8 @@ const menuItems = ["Inicio", "Servicios", "Nosotros", "Contactanos"];
     padding: var(--space-unit) var(--space-2);
     position: relative;
     transition: color var(--transition-duration);
+    font-size: clamp(1rem, 0.9rem, 2rem);
+    padding: 6px 0;
   }
 
   .hover-effect:before,
@@ -110,79 +178,24 @@ const menuItems = ["Inicio", "Servicios", "Nosotros", "Contactanos"];
     opacity: 1;
   }
 
-  /* TABLET (ancho <= 1024px) */
-  @media screen and (max-width: 1024px) {
+  @media (prefers-color-scheme: dark) {
     .logo {
-      width: 120px;
-      height: 50px;
-    }
-
-    .nav-link {
-      font-size: 1rem;
-      padding: 4px 8px;
-    }
-
-    .header {
-      padding: 0 16px;
+      background-image: url("/Imagenes/logo-dark.png");
     }
   }
 
   /* MÓVIL (ancho <= 768px) */
   @media screen and (max-width: 768px) {
-    .header {
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      height: auto;
-      padding: 12px;
-      gap: 12px;
+    .header nav {
+      display: none;
     }
 
-    nav ul {
-      flex-direction: row;
-      width: 100%;
-      gap: 8px;
+    .header aside {
+      display: flex;
     }
 
-    nav ul li {
-      margin: 0;
+    label {
+      display: block;
     }
-
-    .logo {
-      width: 100px;
-      height: 40px;
-    }
-
-    .nav-link {
-      font-size: 0.9rem;
-      padding: 6px 0;
-      width: 100%;
-    }
-  }
-
-  nav ul {
-    flex-direction: row;
-    width: 100%;
-    gap: 8px;
-  }
-
-  nav ul li {
-    margin: 0;
-  }
-
-  .logo {
-    width: 100px;
-    height: 40px;
-  }
-
-  .nav-link {
-    font-size: 0.9rem;
-    padding: 6px 0;
-    width: 100%;
-  }
-  nav ul {
-    flex-direction: row;
-    width: 100%;
-    gap: 8px;
   }
 </style>
