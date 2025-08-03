@@ -6,30 +6,32 @@ import AuditoriesImage from "../assets/cards/auditories.jpg";
 import MobileAppsImage from "../assets/cards/mobile-apps.jpg";
 ---
 
-<h2>Servicios</h2>
+<section>
+  <h2>Servicios</h2>
 
-<main>
-  <ServiceCard
-    title="Agentes de IA"
-    description="Descripción de Agentes de IA"
-    img={AIImage}
-  />
-  <ServiceCard
-    title="Desarrollo Web"
-    description="Descripción de Desarrollo Web"
-    img={WebPagesImage}
-  />
-  <ServiceCard
-    title="Desarrollo de Aplicaciones"
-    description="Descripción de Desarrollo de Aplicaciones"
-    img={MobileAppsImage}
-  />
-  <ServiceCard
-    title="Análisis de Datos"
-    description="Descripción de Análisis de Datos"
-    img={AuditoriesImage}
-  />
-</main>
+  <main>
+    <ServiceCard
+      title="Agentes de IA"
+      description="Descripción de Agentes de IA"
+      img={AIImage}
+    />
+    <ServiceCard
+      title="Desarrollo Web"
+      description="Descripción de Desarrollo Web"
+      img={WebPagesImage}
+    />
+    <ServiceCard
+      title="Desarrollo de Aplicaciones"
+      description="Descripción de Desarrollo de Aplicaciones"
+      img={MobileAppsImage}
+    />
+    <ServiceCard
+      title="Análisis de Datos"
+      description="Descripción de Análisis de Datos"
+      img={AuditoriesImage}
+    />
+  </main>
+</section>
 
 <style is:inline>
   main > article {
@@ -50,6 +52,10 @@ import MobileAppsImage from "../assets/cards/mobile-apps.jpg";
   }
 </style>
 <style>
+  section {
+    margin-block: var(--space-8);
+  }
+
   h2 {
     color: var(--color-primary);
     font-size: var(--font-size-2xl);
