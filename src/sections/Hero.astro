@@ -51,8 +51,6 @@ const {
   .hero-section {
     position: relative;
     width: 100%;
-    min-height: 100vh;
-    overflow: hidden;
     isolation: isolate;
     background: var(--bg-color-dark);
   }
@@ -61,7 +59,6 @@ const {
   .hero-container {
     display: grid;
     grid-template-columns: 1fr 2fr;
-    height: 100vh;
     position: relative;
     width: 100%;
   }
@@ -93,7 +90,7 @@ const {
   }
 
   .hero-title {
-    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-size: clamp(var(--font-size-2xl), 7vw, var(--font-size-6xl));
     font-weight: 800;
     color: var(--text-color-dark);
     line-height: 1.1;
@@ -219,6 +216,7 @@ const {
   /* Responsive para móviles */
   @media (max-width: 768px) {
     .hero-container {
+      height: 600px;
       grid-template-columns: 1fr;
       grid-template-rows: 1fr;
     }
