@@ -3,9 +3,9 @@
     <div class="contact-container">
       <div class="contact-left">
         <h1>Transforma tu negocio ahora</h1>
-        <h3>
+        <span>
           Contacta con nosotros para encontrar la mejor solución a tu problema
-        </h3>
+        </span>
       </div>
       <div class="contact-right">
         <form>
@@ -24,8 +24,8 @@
 <style>
   .contact-section {
     background: light-dark(--bg-color-light, --bg-color-dark);
-    padding: 60px 20px;
-    font-family: "Arial", sans-serif;
+    padding: var(--space-8) var(--space-6);
+    margin-block: var(--space-8);
   }
 
   .contact-container {
@@ -44,15 +44,16 @@
   }
 
   .contact-left h1 {
-    font-size: 32px;
-    color: light-dark(--text-color-light, --text-color-dark);
-    margin-bottom: 10px;
+    font-size: clamp(var(--font-size-xl), 8vw, var(--font-size-5xl));
+    color: var(--text-color);
+    margin-bottom: var(--space-4);
   }
 
-  .contact-left h3 {
-    font-size: 18px;
+  .contact-left span {
+    display: block;
+    font-size: clamp(var(--font-size-base), 4vw, var(--font-size-lg));
     font-weight: normal;
-    color: light-dark(--text-color-light, --text-color-dark);
+    color: var(--text-color);
   }
 
   .contact-right {
