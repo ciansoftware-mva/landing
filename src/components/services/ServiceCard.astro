@@ -1,6 +1,5 @@
 ---
 import type { ImageMetadata } from "astro";
-import { imageConfig } from "astro:assets";
 
 interface Props {
   title: string;
@@ -19,7 +18,7 @@ const { title, description = "", img = null, src = "", alt = "" } = Astro.props;
 
   <p>{description}</p>
 
-  <!-- <button>Saber Mas</button> -->
+  <button>Saber Mas</button>
 </article>
 
 <style>
@@ -30,7 +29,7 @@ const { title, description = "", img = null, src = "", alt = "" } = Astro.props;
     justify-content: center;
     align-items: center;
     background-color: var(--bg-accent-color);
-    width: 200px;
+    width: 100%;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -73,9 +72,18 @@ const { title, description = "", img = null, src = "", alt = "" } = Astro.props;
     }
 
     h3 {
-      font-size: var(--font-size-lg);
+      font-size: clamp(var(--font-size-lg), 3vw + 1rem, var(--font-size-4xl));
       margin-bottom: 0.5rem;
       text-align: center;
+    }
+
+    button {
+      font-size: clamp(
+        var(--font-size-base),
+        2vw + 0.5rem,
+        var(--font-size-2xl)
+      );
+      padding: var(--space-3) var(--space-6);
     }
 
     &:hover {
