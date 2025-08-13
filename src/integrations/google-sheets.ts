@@ -10,7 +10,7 @@ const CREDENTIALS_PATH = path.resolve(__dirname, "credentials.json");
 const credentials = JSON.parse(fs.readFileSync(CREDENTIALS_PATH, "utf8"));
 
 const SPREADSHEET_ID = "1Ccs2qKQEUDFWG7f8Sx5eIdmSBbBHMKRpWhjIk_incvY";
-const SHEET_NAME = "Hoja1";
+const SHEET_NAME = "Hoja 1";
 const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
 
 export async function agregarFila({
@@ -36,7 +36,7 @@ export async function agregarFila({
   try {
     await sheets.spreadsheets.values.append({
       spreadsheetId: SPREADSHEET_ID,
-      range: "Hoja 1!A:E",
+      range: `${SHEET_NAME}!A:E`,
       valueInputOption: "USER_ENTERED",
       requestBody: {
         values: [
