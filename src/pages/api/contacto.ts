@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { agregarFila } from "../../sheets/google-sheets";
+import { agregarFila } from "../../integrations/google-sheets";
 
 export const POST: APIRoute = async ({ request }) => {
   try {
