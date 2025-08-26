@@ -1,5 +1,5 @@
-<forms class="forms">
-  <section class="contact-section">
+<section class="contact-section" id="contactanos">
+  <div class="forms">
     <div class="contact-container">
       <div class="contact-left">
         <h1>Transforma tu negocio ahora</h1>
@@ -8,18 +8,58 @@
         </span>
       </div>
       <div class="contact-right">
-        <form>
-          <input type="text" placeholder="Nombre" required />
-          <input type="email" placeholder="Correo" required />
-          <input type="text" placeholder="Empresa" required />
-          <textarea placeholder="Describe tu problema" rows="6" required
-          ></textarea>
+        <form id="contact-form">
+          <input type="text" name="nombre" placeholder="Nombre" required />
+          <input type="email" name="correo" placeholder="Correo" required />
+          <input type="text" name="empresa" placeholder="Empresa" required />
+          <textarea
+            name="mensaje"
+            placeholder="Describe tu problema"
+            rows="6"
+            required></textarea>
           <button type="submit">Enviar</button>
         </form>
       </div>
     </div>
-  </section>
-</forms>
+  </div>
+</section>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("contact-form");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const data = {
+        nombre: form.nombre.value,
+        correo: form.correo.value,
+        empresa: form.empresa.value,
+        mensaje: form.mensaje.value,
+      };
+
+      try {
+        const res = await fetch("/api/contacto", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        console.log("📤 Enviando datos:", data);
+
+        if (!res.ok) {
+          throw new Error("Error en la respuesta del servidor");
+        }
+
+        const result = await res.json();
+        alert(result.mensaje);
+        form.reset();
+      } catch (err) {
+        console.error("Error al enviar:", err);
+        alert("Hubo un problema al enviar el formulario");
+      }
+    });
+  });
+</script>
 
 <style>
   .contact-section {
