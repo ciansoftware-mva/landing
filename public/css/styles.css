@@ -2,12 +2,12 @@
   color-scheme: light dark;
 
   /* Color Variables */
-  --bg-color-light: #fcffff;
-  --bg-color-dark: #001a1a;
+  --bg-color-light: #fcfcfc;
+  --bg-color-dark: #001313;
   --bg-color: light-dark(var(--bg-color-light), var(--bg-color-dark));
 
   --bg-accent-light: #ecf9fa;
-  --bg-accent-dark: #043636;
+  --bg-accent-dark: #032626;
   --bg-accent-color: light-dark(var(--bg-accent-light), var(--bg-accent-dark));
 
   --bg-hover-light: #cad4d5;
@@ -98,7 +98,7 @@ body {
 
 button {
   background-color: var(--primary-color);
-  color: var(--text-color);
+  color: var(--text-color-dark);
   border: none;
   border-radius: var(--border-radius-sm);
   padding: var(--space-2) var(--space-4);
@@ -108,6 +108,13 @@ button {
   &:hover {
     background-color: var(--primary-hover-color);
   }
+}
+
+.outline {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: var(--border-radius-md);
 }
 
 input,
