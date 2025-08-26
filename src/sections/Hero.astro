@@ -13,7 +13,7 @@ export interface Props {
 const {
   title = "Transforma tu Negocio con",
   subtitle = "Inteligencia Artificial",
-  description = "Revoluciona tu empresa con tecnología de vanguardia y soluciones inteligentes que revolucionan tu flujo de trabajo",
+  description = "Revoluciona tu empresa con tecnología de vanguardia y soluciones inteligentes ",
   primaryButtonText = "Agendar una Cita",
   primaryButtonLink = "#",
 } = Astro.props;
@@ -52,7 +52,7 @@ const {
     position: relative;
     width: 100%;
     isolation: isolate;
-    background: var(--bg-color-dark);
+    background: var(--bg-color);
   }
 
   /* Grid container para desktop */
@@ -61,6 +61,7 @@ const {
     grid-template-columns: 1fr 2fr;
     position: relative;
     width: 100%;
+    padding-block: var(--space-10);
   }
 
   /* Contenido del Hero */
@@ -69,7 +70,7 @@ const {
     align-items: center;
     justify-content: center;
     padding: var(--space-8);
-    background: var(--bg-color-dark);
+    background: var(--bg-color);
     position: relative;
     z-index: 20;
     overflow: visible;
@@ -92,7 +93,7 @@ const {
   .hero-title {
     font-size: clamp(var(--font-size-2xl), 7vw, var(--font-size-6xl));
     font-weight: 800;
-    color: var(--text-color-dark);
+    color: var(--text-color);
     line-height: 1.1;
     position: relative;
     z-index: 25;
@@ -115,8 +116,8 @@ const {
   }
 
   .hero-description {
-    font-size: clamp(1.125rem, 2.5vw, 1.375rem);
-    color: rgba(255, 255, 255, 0.85);
+    font-size: clamp(1.125rem, 2.5vw, 1.575rem);
+    color: var(--text-color);
     margin-bottom: clamp(var(--space-8), 5vw, var(--space-12));
     line-height: 1.6;
     max-width: 90%;
@@ -208,18 +209,7 @@ const {
     position: relative;
     width: 100%;
     height: 100%;
-    background: var(--bg-color-dark);
-    overflow: hidden;
-    z-index: 1;
-  }
-
-  /* Responsive para móviles */
-  @media (max-width: 768px) {
-    .hero-container {
-      height: 600px;
-      grid-template-columns: 1fr;
-      grid-template-rows: 1fr;
-    }
+    background: var(--bg-color);
 
     .hero-content {
       position: absolute;
