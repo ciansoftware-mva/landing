@@ -12,22 +12,22 @@ import MobileAppsImage from "../assets/cards/mobile-apps.jpg";
   <main>
     <ServiceCard
       title="Agentes de IA"
-      description="Descripción de Agentes de IA"
+      description="El poder de la IA al servicio de tu negocio. Automatiza tareas y mejora la eficiencia."
       img={AIImage}
     />
     <ServiceCard
       title="Desarrollo Web"
-      description="Descripción de Desarrollo Web"
+      description="Creamos sitios web modernos y responsivos para tu negocio."
       img={WebPagesImage}
     />
     <ServiceCard
       title="Desarrollo de Aplicaciones"
-      description="Descripción de Desarrollo de Aplicaciones"
+      description="Creamos aplicaciones móviles y de escritorio a medida para tu negocio."
       img={MobileAppsImage}
     />
     <ServiceCard
       title="Análisis de Datos"
-      description="Descripción de Análisis de Datos"
+      description="Transformamos tus datos en información valiosa para la toma de decisiones."
       img={AuditoriesImage}
     />
   </main>
@@ -40,8 +40,8 @@ import MobileAppsImage from "../assets/cards/mobile-apps.jpg";
     left: 50%;
     translate: -50% 0;
     scroll-snap-align: center;
-    height: 350px;
-    flex: 0 0 300px;
+    height: 300px;
+    flex: 0 0 auto;
 
     @media screen and (min-width: 640px) {
       position: static;
@@ -67,24 +67,25 @@ import MobileAppsImage from "../assets/cards/mobile-apps.jpg";
 
   main {
     display: flex;
-    gap: var(--space-6);
+    gap: var(--space-10);
     justify-content: start;
     align-items: center;
-    overflow-x: scroll;
+    overflow-x: auto;
     padding-block: var(--space-8);
     scroll-snap-type: x mandatory;
-    padding-inline: 50vw;
+    padding-inline: var(--space-10);
+    box-sizing: border-box;
 
     @media screen and (width > 640px) {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       align-content: center;
       justify-items: center;
-      overflow: hidden;
       padding-inline: 0;
       max-width: var(--breakpoint-3xl);
       margin-inline: auto;
       scroll-snap-type: none;
+      overflow-x: visible;
     }
   }
 
