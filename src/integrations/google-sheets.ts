@@ -1,16 +1,11 @@
 import { google } from "googleapis";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const CREDENTIALS_PATH = path.resolve(__dirname, "credentials.json");
-const credentials = JSON.parse(fs.readFileSync(CREDENTIALS_PATH, "utf8"));
-
-const SPREADSHEET_ID = "1Ccs2qKQEUDFWG7f8Sx5eIdmSBbBHMKRpWhjIk_incvY";
-const SHEET_NAME = "Hoja 1";
+// Credenciales y parámetros desde variables de entorno
+const credentials = {
+  client_email: import.meta.env.GOOGLE_CLIENT_EMAIL,
+  private_key: import.meta.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+};
+const SPREADSHEET_ID = import.meta.env.GOOGLE_SPREADSHEET_ID;
+const SHEET_NAME = import.meta.env.GOOGLE_SHEET_NAME;
 const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
 
 export async function agregarFila({
