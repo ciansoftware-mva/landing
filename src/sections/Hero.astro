@@ -62,6 +62,11 @@ const {
     position: relative;
     width: 100%;
     padding-block: var(--space-10);
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr;
+    }
   }
 
   /* Contenido del Hero */
@@ -70,7 +75,6 @@ const {
     align-items: center;
     justify-content: center;
     padding: var(--space-8);
-    background: var(--bg-color);
     position: relative;
     z-index: 20;
     overflow: visible;
@@ -87,7 +91,6 @@ const {
     width: 100%;
     padding: 0 var(--space-6);
     position: relative;
-    z-index: 25;
   }
 
   .hero-title {
@@ -96,7 +99,6 @@ const {
     color: var(--text-color);
     line-height: 1.1;
     position: relative;
-    z-index: 25;
   }
 
   .hero-subtitle {
@@ -112,7 +114,6 @@ const {
     margin-top: clamp(var(--space-2), 2vw, var(--space-4));
     text-shadow: 0 0 30px rgba(63, 181, 181, 0.3);
     position: relative;
-    z-index: 25;
   }
 
   .hero-description {
@@ -210,12 +211,19 @@ const {
     width: 100%;
     height: 100%;
     background: var(--bg-color);
+  }
+
+  @media (max-width: 768px) {
+    .hero-container {
+      height: 600px;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+    }
 
     .hero-content {
       position: absolute;
       inset: 0;
-      z-index: 10;
-      background: rgba(0, 26, 26, 0.85);
+      z-index: 2;
       padding: var(--space-4);
     }
 
