@@ -35,25 +35,8 @@ const menuItems = [
       {
         menuItems.map((item) => (
           <li>
-            <a href="" class="nav-link hover-effect">
-              {item}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </aside>
-
-  <!-- mobile -->
-  <label for="menu"><HamburguerIcon width={24} height={24} /></label>
-  <input type="checkbox" hidden name="menu" id="menu" />
-  <aside id="sidebar">
-    <ul>
-      {
-        menuItems.map((item) => (
-          <li>
-            <a href="" class="nav-link hover-effect">
-              {item}
+            <a href={item.href} class="nav-link hover-effect">
+              {item.label}
             </a>
           </li>
         ))
