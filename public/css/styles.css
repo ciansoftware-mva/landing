@@ -6,7 +6,7 @@
   --bg-color-dark: #001313;
   --bg-color: light-dark(var(--bg-color-light), var(--bg-color-dark));
 
-  --bg-accent-light: #ecf9fa;
+  --bg-accent-light: #dcf3f3;
   --bg-accent-dark: #032626;
   --bg-accent-color: light-dark(var(--bg-accent-light), var(--bg-accent-dark));
 
@@ -20,6 +20,7 @@
 
   --primary-color: #3fb5b5;
   --primary-hover-color: #43d2d2;
+  --secondary-color: #02617b;
 
   /* Spancing */
   --space-unit: 4px;
@@ -71,6 +72,19 @@
 
   /* Animations */
   --transition-duration: 0.3s;
+}
+
+@font-face{
+  font-family: 'BankGothic';
+  src: url('../fonts/BankGothic45.otf') format('truetype');
+  font-style: normal;
+}
+
+@font-face{
+  font-family: 'BankGothic';
+  src: url('../fonts/BankGothic65.otf') format('truetype');
+  font-style: normal;
+  font-weight: bold;
 }
 
 * {
@@ -142,4 +156,13 @@ textarea {
 
 li {
   list-style: none;
+}
+
+h2.underline span{
+    padding: var(--space-2) var(--space-4);
+    border-bottom: var(--space-2) solid var(--primary-color);
+}
+
+h2.gothic{
+  font-family: 'BankGothic', sans-serif;
 }
