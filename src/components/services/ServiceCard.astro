@@ -1,169 +1,158 @@
 ---
 import type { ImageMetadata } from "astro";
-
+import CharPlotIcon from "../../assets/icons/charplot.svg";
+import DesktopIcon from "../../assets/icons/desktop.svg";
+import MobileIcon from "../../assets/icons/mobile.svg";
+import AffiliateIcon from "../../assets/icons/affiliate.svg";
+import ChevronsUp from "../../assets/icons/chevrons-up.svg";
 interface Props {
   title: string;
   description?: string;
   img?: ImageMetadata;
   src?: string;
   alt?: string;
+  icon?: "data" | "desktop" | "mobile" | "ai";
 }
 
-const { title, description = "", img = null, src = "", alt = "" } = Astro.props;
+const { title, description = "", img = null, src = "", alt = "", icon="" } = Astro.props;
+
+const icons = {
+  data: CharPlotIcon,
+  desktop: DesktopIcon,
+  mobile: MobileIcon,
+  ai: AffiliateIcon,
+};
+
+const IconComponent = icon ? icons[icon] : null;
 ---
 
 <article>
   <img src={img?.src || src} {alt} class="background" />
+  {IconComponent &&  <IconComponent width={50} height={50} class="service-icon" />}
   <h3>{title}</h3>
 
-  <button class="know-more">Saber Mas</button>
   <p>{description}</p>
+  <ChevronsUp width={32} height={32} class={"look-more"}/>
+
 </article>
 
 <style>
-  article {
-    display: flex;
+  article{
+    height: 500px;
+    width: 100%;
     position: relative;
-    flex-direction: column;
-    gap: 1rem;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--bg-accent-color);
-    width: calc(100% - 15px);
     overflow: hidden;
-    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
-    padding-top: var(--space-4);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: subgrid;
+    grid-row: span 2;
+    gap: var(--space-2);
+    justify-items: center;
+    color: var(--bg-accent-light);
+    border-radius: var(--border-radius-md);
+  }  
 
-    &:before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      left: -7px;
-      margin: auto;
-      width: calc(100% + 15px);
-      height: calc(100% + 15px);
-      z-index: -10;
-      border-radius: var(--border-radius-md);
-      /* background: linear-gradient(
-        -45deg,
-        #033f3f 0%,
-        #055858 50%,
-        #033f3f 100%
-      ); */
-    }
+  /* image gradient */
+  article::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      #0065ad 60%,
+      var(--secondary-color)
+    );
+    opacity: 15%;
+    z-index: 1;
+  }
+  
 
-    img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      z-index: -1;
-      filter: brightness(0.4) blur(2px);
-      transition: filter 0.3s ease-in-out;
-      border-radius: var(--border-radius-md);
-    }
+  .service-icon{
+    align-self: end;
+    color: var(--primary-color);
+  }
 
-    p {
-      width: 100%;
-      display: none;
-      text-align: center;
-      position: relative;
-      align-items: center;
-      justify-content: center;
-      justify-self: flex-end;
-      height: 0;
-      top: 100%;
-      padding-inline: var(--space-3);
-      color: var(--bg-accent-light);
-      /* background: linear-gradient(
-        to bottom,
-        transparent 0%,
-        rgba(31, 31, 31, 0.438) 100%
-      ); */
+  h3 {
+    font-size: var(--font-size-2xl);
+    text-align: center;
+    z-index: 1;
+  }
 
-      transition:
-        height 0.3s ease-in-out,
-        top 0.3s ease-in-out,
-        display 0.5s ease-in-out allow-discrete;
-    }
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: -2;
+    filter: brightness(0.4) blur(2px);
+  
+    transition: filter 0.3s ease-in-out;
+  }
 
-    h3 {
-      font-size: clamp(var(--font-size-lg), 3vw + 1rem, var(--font-size-4xl));
-      margin-bottom: 0.5rem;
-      text-align: center;
-      color: var(--bg-accent-light);
-    }
+  p{
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: var(--space-8) var(--space-4);
+    background-color: var(--secondary-color);
+    color: var(--bg-accent-light);
+    text-align: center;
+    translate: 0 100%;
+    transition: translate 0.3s ease-in-out, display 0.4s allow-discrete;
+  }
 
-    .know-more {
-      display: inline-block;
-      font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-xl));
-      padding: var(--space-2) var(--space-4);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s ease-in-out;
-      justify-self: flex-end;
-    }
 
-    button {
-      font-size: clamp(
-        var(--font-size-base),
-        2vw + 0.5rem,
-        var(--font-size-2xl)
-      );
-      padding: var(--space-3) var(--space-6);
-      transition:
-        opacity 0.3s ease-in-out,
-        display 0.5s ease-in-out allow-discrete;
-    }
 
-    &:hover {
-      /* justify-content: end; */
-      img {
-        filter: brightness(0.2) blur(10px);
-      }
-      button {
-        display: none;
-        opacity: 0;
-        transition:
-          opacity 0.4s ease-in-out,
+  .look-more{
+    position: absolute;
+    bottom: var(--space-4);
+    color: var(--primary-color);
+    transition: opacity 0.3s ease-in-out, bottom 0.3s ease-in-out;
+    animation: float 5s ease-in-out infinite;
 
-          @starting-style {
-          opacity: 1;
-        }
-      }
-      p {
-        flex-grow: 0;
-        height: fit-content;
-        top: 0;
-        display: flex;
-        transition:
-          height 0.4s ease-in-out,
-          top 0.4s ease-in-out;
+  }
 
-        @starting-style {
-          height: 0;
-          top: 100%;
-        }
-      }
+  article:hover p{
+    display: block;
+    translate: 0 0;
+    transition: translate 0.3s ease-in-out, display 0.4s allow-discrete;
 
-      /* p {
-        display: block;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 40%;
-        z-index: 1;
-        background-color: var(--bg-accent-color);
-        padding-block: var(--space-6);
-
-        @starting-style {
-          height: 0;
-          top: 100%;
-        }
-      } */
+    @starting-style {
+      translate: 0 100%;
     }
   }
+
+  article:hover .look-more{
+    bottom: -100%;
+    opacity: 0;
+    animation-play-state: paused;
+    transition: opacity 0.3s ease-in-out, bottom 0.3s ease-in-out;
+
+    @starting-style {
+      bottom: var(--space-4);
+      opacity: 1;
+    }
+
+  }
+
+  @keyframes float{
+    0% {
+      transform: translateY(0);
+    }
+    30% {
+      transform: translateY(-10px);
+    }
+    60% {
+      transform: translateY(0);
+    }
+  }
+
+  
 </style>
