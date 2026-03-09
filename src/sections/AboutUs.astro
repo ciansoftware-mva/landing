@@ -7,7 +7,9 @@ import TeamPicture from "../assets/team.jpg";
     <img src={TeamPicture.src} alt="Team Picture" />
   </picture>
   <div>
-    <h2>Acerca de nosotros</h2>
+    <h2 class="underline gothic">
+      <span>Nosotros</span>
+    </h2>
     <p>
       Somos una empresa especializada en el desarollo de software, inteligencia
       artificial y analisis de datos.
@@ -17,41 +19,50 @@ import TeamPicture from "../assets/team.jpg";
 
 <style>
   section {
-    max-width: var(--breakpoint-lg);
+    max-width: var(--breakpoint-2xl);
     margin-inline: auto;
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     overflow-x: hidden;
-    overflow-y: visible;
-    height: fit-content;
+    /* overflow-y: visible; */
+    display: grid;
+    grid-template-columns: 60% 40%;
+    align-items: center;
     padding: 1rem;
-    gap: 2rem;
   }
 
-  div,
   picture {
-    flex-grow: 1;
-    flex-basis: 0;
+    flex: 1 0 40%;
   }
 
   picture img {
-    max-height: 500px;
+    max-height: 700px;
     min-width: 200px;
-    width: 60vw;
-    max-width: 500px;
+    width: 100%;
     border-radius: 0px 8px 8px 0px;
     object-fit: cover;
   }
 
-  div * {
+  div{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-4);
+  }
+
+  div * {;
     text-align: right;
   }
 
   div h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+    font-size: var(--font-size-6xl);
+    margin-bottom: 2rem;
+  }
+
+  div p {
+    max-width: 400px;
+    font-size: var(--font-size-4xl);
+    color: var(--text-secondary-color);
+    padding-bottom: 1rem;
   }
 
   section::after {
@@ -59,7 +70,7 @@ import TeamPicture from "../assets/team.jpg";
     position: absolute;
     top: 50%;
     right: 0;
-    width: 500px;
+    height: 100%;
     aspect-ratio: 1 / 1;
     background-color: var(--bg-accent-color);
     border-radius: 50%;
@@ -69,25 +80,44 @@ import TeamPicture from "../assets/team.jpg";
 
   @media screen and (width < 640px) {
     section {
-      height: 100%;
-      flex-direction: column-reverse;
+      overflow-x: clip;
+      overflow-y: visible;
+      grid-template-columns: 100%;
+      grid-template-rows: auto 1fr;
+      gap: 1rem;
     }
 
+  
     section::after {
-      top: 50%;
+      width: 200%;
+      top: 5%;
       right: 50%;
-      width: 500px;
-      translate: 50% -50%;
-      margin-block: var(--space-8);
+      translate: 50% 0%;
     }
 
-    picture img {
-      max-height: 100vw;
+    picture{
+      grid-row: 2;
+    }
+
+    picture, picture img {
+      height: 100%;
+      max-height: 500px;
       border-radius: 8px;
+    }
+
+    div{
+      align-self: self-start;
+      align-items: center;
     }
 
     div * {
       text-align: center;
+    }
+
+
+    div p {
+      max-width: 500px;
+
     }
   }
 </style>
